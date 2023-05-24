@@ -13,5 +13,27 @@ import osmnx as ox
 ox.config(log_console=True)
 
 # Creating and Analyzing the Graph
+colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
+place = 'Istanbul, Turkey'
+G = ox.graph_from_place(place, network_type='drive')
+
+ox.plot.plot_graph(G, bgcolor='#FFFFFF', node_color=colors[0], edge_color='lightgray', node_size=5,figsize=(15, 15));
+
+print("Nodes:", G.number_of_nodes())
+print("Edges:", G.number_of_edges())
+
+edge_list = []
+for i in G.edges:
+    edge_list.append((i[0],i[1]))
+    
+**Defining the graph:**
+
+Gnx = nx.from_edgelist(edge_list)
+
+**10 nodes with highest degrees:**
+
+degrees1 = dict(nx.degree(Gnx))
+sorted_deg = sorted(degrees1.items(), key=lambda x:x[1], reverse=True)
+print("Top 10 degrees: ", sorted_deg[:10])
 
